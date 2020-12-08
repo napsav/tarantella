@@ -1,0 +1,11 @@
+html(lang='it')
+  head
+    title Invio titolo
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  link(rel='stylesheet' href='https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css')
+.container
+    h1 Marmotte pazze distratte Podcast
+    if titolo
+      h2 Il titolo è "#{titolo}"
+    if alert
+      h3 #{alert}

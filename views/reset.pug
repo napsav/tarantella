@@ -1,0 +1,15 @@
+html(lang='it')
+  head
+    title Reset
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  link(rel='stylesheet' href='https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css')
+.container
+    h1 Marmotte pazze distratte Podcast
+    p Numero titoli #{n}
+    if alert
+      p #{alert}
+    #container.col
+      form(method='POST' action='reset')
+        label(for='password') Password: 
+        input#comando(type='password' name='password' required='')
+        input(type='submit' value='Invia')
