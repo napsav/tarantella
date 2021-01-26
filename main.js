@@ -41,7 +41,7 @@ app.post('/', (req, res) => {
         done = true;
         alert = "Hai già inserito un titolo!"
     } else if (titoli.length + 1 <= partecipanti) {
-        alert = "Titolo inviato con successo, puoi chiudere";
+        alert = "Titolo inviato con successo, puoi chiudere la pagina.";
         color = "green"
         done = true;
         titoli.push(titolo.trim());
