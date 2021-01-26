@@ -4,14 +4,17 @@ html(lang='it')
   meta(name='viewport' content='width=device-width, initial-scale=1.0')
   link(rel='stylesheet' href='https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css')
 .container
-    h1 Marmotte pazze distratte Podcast
+    h1 Tarantelle gratis
     h2 Aggiungi il titolo dell'articolo
-    if alert
-      p #{alert}
+
     #container.col
     if done
-      p Non puoi inviare altri titoli. Puoi chiudere la pagina
+      if alert
+        p(style=`font-size:24px; padding:10px; background-color:${color}; color: white; border-radius:6px;`) #{alert}
+      p Non puoi inviare altri titoli. Puoi chiudere la pagina.
     else
+      if alert
+        p(style=`font-size:24px; padding:10px; background-color:${color}; color: white; border-radius:6px;`) #{alert}
       form(method='POST' action='/')
         label(for='titolo') Titolo: 
         input#comando(type='text' name='titolo' required='')

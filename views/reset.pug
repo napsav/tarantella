@@ -4,12 +4,27 @@ html(lang='it')
   meta(name='viewport' content='width=device-width, initial-scale=1.0')
   link(rel='stylesheet' href='https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css')
 .container
-    h1 Marmotte pazze distratte Podcast
-    p Numero titoli #{n}
+    h1 Pannello
+    p Numero titoli: #{n}
+    p Partecipanti: #{part}
     if alert
       p #{alert}
     #container.col
+      h2 Reset titoli
       form(method='POST' action='reset')
         label(for='password') Password: 
-        input#comando(type='password' name='password' required='')
+        input(type='password' name='password' required='')
+        input(type='submit' value='Invia')
+      hr
+      h2 Numero partecipanti
+      form(method='POST' action='cambiopartecipanti')
+        label(for='password') Password: 
+        input(type='password' name='password' required='')
+        label(for='password') Numero partecipanti: 
+        input(type='number' name='partecipanti' required='')
+        input(type='submit' value='Invia')
+      h2 Reset indirizzi ip
+      form(method='POST' action='resetip')
+        label(for='password') Password: 
+        input(type='password' name='password' required='')
         input(type='submit' value='Invia')
