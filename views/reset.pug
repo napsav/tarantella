@@ -7,8 +7,12 @@ html(lang='it')
     h1 Pannello
     p Numero titoli: #{n}
     p Partecipanti: #{part}
+    if checkIp == true
+      p(style="color:red") Il controllo IP è abilitato
+    else
+      p(style="color:green") Il controllo IP è disabilitato
     if alert
-      p #{alert}
+      p(style=`font-size:24px; padding:10px; background-color:green; color: white; border-radius:6px;`) #{alert}
     #container.col
       h2 Reset titoli
       form(method='POST' action='reset')
@@ -25,6 +29,11 @@ html(lang='it')
         input(type='submit' value='Invia')
       h2 Reset indirizzi ip
       form(method='POST' action='resetip')
+        label(for='password') Password: 
+        input(type='password' name='password' required='')
+        input(type='submit' value='Invia')
+      h2 Controllo IP
+      form(method='POST' action='controlloip')
         label(for='password') Password: 
         input(type='password' name='password' required='')
         input(type='submit' value='Invia')

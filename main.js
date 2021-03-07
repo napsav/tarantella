@@ -12,6 +12,9 @@ app.use(bodyParser.json());
 var titoli = [];
 let partecipanti = 0;
 let ip = [];
+let checkIp = true;
+
+
 // Index
 app.get('/', (req, res) => {
     let alert = null;
@@ -30,14 +33,14 @@ app.post('/', (req, res) => {
     var done = false;
     var alert = null;
     var color = "#ff6161"
-    var titolo = req.body.titolo;
+    var titolo = req.body.titolo.trim();
     console.log(titoli.length)
     if (titolo === null || titolo === "") {
         alert = "Il titolo non può essere vuoto!";
-    } else if (titoli.length === partecipanti) {
+    } else if (titoli.length == partecipanti) {
         done = true;
         alert = "Titoli al completo"
-    } else if (ip.includes(req.ip)) {
+    } else if (checkIp && ip.includes(req.ip)) {
         done = true;
         alert = "Hai già inserito un titolo!"
     } else if (titoli.length + 1 <= partecipanti) {
@@ -73,14 +76,15 @@ app.get('/partecipante', (req, res) => {
 
 app.get('/admin', (req, res) => {
     res.render('reset.pug',
-        { n: titoli.length, part: partecipanti })
+        { n: titoli.length, part: partecipanti, checkIp: checkIp })
 })
 
 app.post('/reset', (req, res) => {
+    let alert= "Resettati con successo i titoli"
     const pass = process.env.PASSWORD;
     if (req.body.password === pass) {
         titoli = [];
-        res.send("Fatto")
+        res.render("reset.pug", {alert:alert, n: titoli.length, part: partecipanti, checkIp: checkIp})
     } else {
         res.send("Non autorizzato");
     }
@@ -88,19 +92,32 @@ app.post('/reset', (req, res) => {
 
 app.post('/cambiopartecipanti', (req, res) => {
     const pass = process.env.PASSWORD;
+    let alert = "Cambiati i partecipanti a " + req.body.partecipanti
     if (req.body.password === pass) {
         partecipanti = req.body.partecipanti;
-        res.send("Fatto")
+        res.render("reset.pug", {alert:alert,n: titoli.length, part: partecipanti, checkIp: checkIp})
     } else {
         res.send("Non autorizzato");
     }
 })
 
 app.post('/resetip', (req, res) => {
+    let alert = "Resettati gli ip con successo"
     const pass = process.env.PASSWORD;
     if (req.body.password === pass) {
         ip = [];
-        res.send("Fatto")
+        res.render("reset.pug", {alert:alert,n: titoli.length, part: partecipanti, checkIp: checkIp})
+    } else {
+        res.send("Non autorizzato");
+    }
+})
+
+app.post('/controlloip', (req, res) => {
+    let alert = "Modificato il controllo ip"
+    const pass = process.env.PASSWORD;
+    if (req.body.password === pass) {
+        checkIp = !checkIp;
+        res.render("reset.pug", {alert:alert,n: titoli.length, part: partecipanti, checkIp: checkIp})
     } else {
         res.send("Non autorizzato");
     }
